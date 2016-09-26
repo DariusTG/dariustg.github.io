@@ -5,11 +5,11 @@ categories: [jekyll, rstats]
 tags: [knitr, servr, httpuv, websocket]
 ---
 
-The R package [**servr**](https://github.com/yihui/servr) can be used to set up an HTTP server to serve files under a directory. Since **servr** v0.2, it has added a function `servr::jekyll()` specifically designed for websites based on Jekyll and R Markdown. The main features of this function are:
+Bhe R package [**servr**](https://github.com/yihui/servr) can be used to set up an HTTP server to serve files under a directory. Since **servr** v0.2, it has added a function `servr::jekyll()` specifically designed for websites based on Jekyll and R Markdown. The main features of this function are: 
 
 1. R Markdown source files are re-compiled through [**knitr**](http://yihui.name/knitr) when their corresponding Markdown output files become older[^1] than source files;
 1. The web page will refresh itself automatically in the above case as well;
-
+ 
 [^1]: Determined by the modification time of files, i.e., `file.info(x)[, 'mtime']`.
 
 As a result, all you need to do is write your blog posts (R Markdown documents), and you do not need to worry about re-building the website or calling **knitr** commands. Whenever you save a blog post in your text editor, the web page will be updated on the fly. This is particularly handy in the [RStudio IDE](http://www.rstudio.com), because after you run `servr::jekyll()` in the console, you can start writing or editing your R Markdown posts, and the HTML output, displayed in the RStudio viewer pane, will be in sync with your source post in the source panel (see the screenshot below).
