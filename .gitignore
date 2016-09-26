@@ -1,5 +1,5 @@
 .Rproj.user
-dariustg.github.io.Rproj
 .Rhistory
 .RData
-.Ruserdata
+_site/
+.sass-cache/
