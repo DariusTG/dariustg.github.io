@@ -16,29 +16,7 @@ There are many ways to do this, but here is a simple method I created using [lub
 
 {% highlight r %}
 library(dplyr)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in library(dplyr): there is no package called 'dplyr'
-{% endhighlight %}
-
-
-
-{% highlight r %}
 library(lubridate)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in library(lubridate): there is no package called 'lubridate'
-{% endhighlight %}
-
-
-
-{% highlight r %}
 library(knitr)
 
 ## Create a simple data.frame object
@@ -48,17 +26,7 @@ df = data.frame(
    y = runif(300),
    z = runif(300)
 )
-{% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in data.frame(dt = today() + days(1:300), x = runif(300), y = runif(300), : could not find function "today"
-{% endhighlight %}
-
-
-
-{% highlight r %}
 ## Select only the last "Monthly" row for each month
 df %>%
   mutate(Monthly = ceiling_date(dt, "months")) %>%  
@@ -71,9 +39,19 @@ df %>%
 
 
 
-{% highlight text %}
-## Error in eval(expr, envir, enclos): could not find function "%>%"
-{% endhighlight %}
+|dt         |         x|         y|         z|
+|:----------|---------:|---------:|---------:|
+|2016-09-30 | 0.1809964| 0.8622757| 0.2068067|
+|2016-10-31 | 0.1755179| 0.5409558| 0.5477857|
+|2016-11-30 | 0.0743728| 0.5898823| 0.4515786|
+|2016-12-31 | 0.8440595| 0.0833372| 0.7072961|
+|2017-01-31 | 0.4890006| 0.8884277| 0.3121628|
+|2017-02-28 | 0.5372821| 0.1066741| 0.0073038|
+|2017-03-31 | 0.1701677| 0.3853504| 0.3694823|
+|2017-04-30 | 0.5132111| 0.4023023| 0.5313221|
+|2017-05-31 | 0.5571612| 0.2332402| 0.0228759|
+|2017-06-30 | 0.9358545| 0.3474731| 0.3813820|
+|2017-07-23 | 0.6717521| 0.6734634| 0.7671651|
 
 This is a very simple method to create periodicity transformation using dplyr and lubridate. The first function creates a new column that distinctly identifies each month/year that each record belongs to using **ceiling_date**. This could be any interval of time from second to hours to quarters, to years. I can also prefix the unit with an integer to create custom intervals ("5 days").
 
@@ -119,9 +97,13 @@ df %>%
 
 
 
-{% highlight text %}
-## Error in eval(expr, envir, enclos): could not find function "%>%"
-{% endhighlight %}
+|dt         |         x|         y|         z|
+|:----------|---------:|---------:|---------:|
+|2016-09-30 | 0.1809964| 0.8622757| 0.2068067|
+|2016-12-31 | 0.8440595| 0.0833372| 0.7072961|
+|2017-03-31 | 0.1701677| 0.3853504| 0.3694823|
+|2017-06-30 | 0.9358545| 0.3474731| 0.3813820|
+|2017-07-23 | 0.6717521| 0.6734634| 0.7671651|
 
 This function is obviously more complicated than the script above, but the **field** parameter adds some challenges. I want my data wrangling functions to follow the dplyr convention of passing expressions as field names. This keeps everything consistent. I use the **deparse** function to convert the expression to a string so that I can access the data. I could use lazyeval for this (which is how dplyr works) but it creates many more complications and unatractive code. There are limitations to deparse but they do not impact this function (see [https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html]).
 
