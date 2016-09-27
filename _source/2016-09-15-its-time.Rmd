@@ -4,11 +4,11 @@ title: "It's Time!"
 categories: [Solutions]
 tags: [xts, ggplot2]
 ---
-
+ 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
+ 
 The [xts](http://joshuaulrich.github.io/xts/index.html) package is fantastic for time-series data manipulation. You can easily convert to and apply functions to different frequencies, merge with other time series vertically and horizontally, and lag data. These are very helpful features that are cumbersome when working with a data.frame. Unfortunately, if you want to leverage ggplot to produce great looking plots, you cannot use xts objects natively.
 
 It is fairly easy to convert from xts to to a data frame but the key is to get the date into its own column. 
@@ -30,7 +30,7 @@ x.ibm_price_hist_monthly = to.monthly(x.ibm_price_hist$Close, OHLC=F)
 ```
 
 I don't like those four steps to get the price data into an xts object, so just create a personal library function to handle it. You can use the [quantmod](http://www.quantmod.com) package which includes a function (getSymbols) to download prices and other data from various sources directly into xts objects. You can also just roll your own.
-
+ 
 ```{r echo=TRUE, warning=FALSE}
 GetPrices = function(url) {
   price_hist = read.csv(url, header = T, quote = "")
@@ -56,13 +56,13 @@ xts2data.frame = function(x) {
   colnames(df) = c("Date", colnames(x))
   return(df)
 }
-
+ 
 df.ibm_price_history_monthly = xts2data.frame(x.ibm_price_hist_monthly)
 tail(df.ibm_price_history_monthly)
 
 ggplot(df.ibm_price_history_monthly) +
   geom_line(aes(x=Date, y=Close), size=1.5) +
-  ggtitle("IBM") + 
+  ggtitle("IBM Stock Price") + 
   ylab("Price Close (log 10 scale)") +
   scale_y_log10(breaks=pretty(df.ibm_price_history_monthly$Close)) +
   theme_economist_white()
