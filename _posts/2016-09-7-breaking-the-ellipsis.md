@@ -1,0 +1,137 @@
+---
+layout: post
+title: "Breaking the Ellipsis"
+categories: [Solutions]
+tags: [ellipsis, list]
+---
+
+
+I have often found instances where I want to pass a list to a function that accepts multiple items though an ellipsis. If you pass the list, the function considers that one item.
+
+Lists are handy structures to use because they are not as judgmental as other structures. The ellipsis is also handy because it doesn’t ask you to figure out how many items you want to pass to a function. If I am writing a function with an ellipsis, I will check the class of the first item and determine if it is a list before processing the data.
+
+
+{% highlight r %}
+fun = function(...) {
+  params = list(...)
+  if(length(params) == 1 & class(params) == "list") {
+    params = params[[1]]
+  }
+  #...
+}
+{% endhighlight %}
+
+This doesn’t obviously work if the function expects multiple list objects to be passed in. It also doesn’t work on functions you don’t write.
+
+Here is an example problem I have run into many times:
+
+
+{% highlight r %}
+mylist = list()
+mylist[[1]] = sample(1:10, 10)
+mylist[[2]] = sample(1:10, 10)
+mylist[[3]] = sample(1:10, 10)
+mylist[[4]] = sample(1:10, 10)
+mylist[[5]] = sample(1:10, 10)
+ 
+## How do I take this list and turn it into a matrix?!
+mymatrix = matrix(nrow = length(mylist[[1]]))
+for(i in 1:length(mylist)) {
+  mymatrix = cbind(mymatrix, mylist[[i]])
+}
+mymatrix = mymatrix[,-1]
+ 
+# That solution sucks!
+# I just want to call cbind(mylist) and get a matrix
+{% endhighlight %}
+
+As you can see, for loops and a blank starter column are not ideal. I could create a proxy for [cbind] to handle lists or separate parameters, but that is cumbersome and could cause problems if the underlying function changes.
+
+The easy solution is to use the [do.call] function. [do.call] takes a function and a list (named if you want direct assignment to the function) and calls the passed function with each element of the list.
+
+
+{% highlight r %}
+mylist = list()
+mylist[[1]] = sample(1:10, 10)
+mylist[[2]] = sample(1:10, 10)
+mylist[[3]] = sample(1:10, 10)
+mylist[[4]] = sample(1:10, 10)
+mylist[[5]] = sample(1:10, 10)
+ 
+mymatrix = do.call(cbind, mylist)
+ 
+# This is the equivalent of mymatrix = cbind(mylist[[1]]
+#  , mylist[[2]]
+#  , mylist[[3]]
+#  , mylist[[4]]
+#  , mylist[[5]])
+{% endhighlight %}
+
+Here is another example I created to demonstrate how it works:
+
+
+{% highlight r %}
+## Simple function to print each parameter
+fun = function(...) {
+ params = list(...)
+ print(paste("List length:", length(params)))
+ for(i in 1:length(params)) {
+   print(params[[i]])
+ }
+}
+# Call fun passing three values
+fun(1,2,3)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## [1] "List length: 3"
+## [1] 1
+## [1] 2
+## [1] 3
+{% endhighlight %}
+
+
+
+{% highlight r %}
+# The function can handle a variable number of inputs
+ 
+# Call fun passing a list
+fun(list(1,2,3))
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## [1] "List length: 1"
+## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 2
+## 
+## [[3]]
+## [1] 3
+{% endhighlight %}
+
+
+
+{% highlight r %}
+# Passing a list to the ellipsis will not
+# separate each parameter
+ 
+# If you have your data in a list and want each value
+# to be passed individually, use the do.call
+ 
+do.call(fun, args = list(1,2,3))
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## [1] "List length: 3"
+## [1] 1
+## [1] 2
+## [1] 3
+{% endhighlight %}
