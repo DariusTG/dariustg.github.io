@@ -4,7 +4,7 @@ title: "It's Time!"
 categories: [Solutions]
 tags: [xts, ggplot2]
 ---
- 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
