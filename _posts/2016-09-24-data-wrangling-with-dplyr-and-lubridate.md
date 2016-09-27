@@ -3,6 +3,11 @@ layout: post
 title: "Date Wrangling with dplyr and lubridate"
 categories: [Solutions]
 tags: [dplyr, lubridate]
+output: 
+  html_document: 
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 10
 ---
 
 
@@ -41,17 +46,17 @@ df %>%
 
 |dt         |         x|         y|         z|
 |:----------|---------:|---------:|---------:|
-|2016-09-30 | 0.1809964| 0.8622757| 0.2068067|
-|2016-10-31 | 0.1755179| 0.5409558| 0.5477857|
-|2016-11-30 | 0.0743728| 0.5898823| 0.4515786|
-|2016-12-31 | 0.8440595| 0.0833372| 0.7072961|
-|2017-01-31 | 0.4890006| 0.8884277| 0.3121628|
-|2017-02-28 | 0.5372821| 0.1066741| 0.0073038|
-|2017-03-31 | 0.1701677| 0.3853504| 0.3694823|
-|2017-04-30 | 0.5132111| 0.4023023| 0.5313221|
-|2017-05-31 | 0.5571612| 0.2332402| 0.0228759|
-|2017-06-30 | 0.9358545| 0.3474731| 0.3813820|
-|2017-07-23 | 0.6717521| 0.6734634| 0.7671651|
+|2016-09-30 | 0.4167253| 0.2457963| 0.9700675|
+|2016-10-31 | 0.4635953| 0.2950930| 0.4026947|
+|2016-11-30 | 0.9116948| 0.7795224| 0.8702187|
+|2016-12-31 | 0.1618827| 0.4743914| 0.7394580|
+|2017-01-31 | 0.1641406| 0.9305809| 0.2720479|
+|2017-02-28 | 0.2861450| 0.1542953| 0.1937059|
+|2017-03-31 | 0.5092111| 0.6413857| 0.9484840|
+|2017-04-30 | 0.8976203| 0.3369654| 0.7585096|
+|2017-05-31 | 0.5986159| 0.2201575| 0.1229464|
+|2017-06-30 | 0.4266790| 0.4165978| 0.4200152|
+|2017-07-24 | 0.2501680| 0.5716578| 0.4462988|
 
 This is a very simple method to create periodicity transformation using dplyr and lubridate. The first function creates a new column that distinctly identifies each month/year that each record belongs to using **ceiling_date**. This could be any interval of time from second to hours to quarters, to years. I can also prefix the unit with an integer to create custom intervals ("5 days").
 
@@ -99,11 +104,11 @@ df %>%
 
 |dt         |         x|         y|         z|
 |:----------|---------:|---------:|---------:|
-|2016-09-30 | 0.1809964| 0.8622757| 0.2068067|
-|2016-12-31 | 0.8440595| 0.0833372| 0.7072961|
-|2017-03-31 | 0.1701677| 0.3853504| 0.3694823|
-|2017-06-30 | 0.9358545| 0.3474731| 0.3813820|
-|2017-07-23 | 0.6717521| 0.6734634| 0.7671651|
+|2016-09-30 | 0.4167253| 0.2457963| 0.9700675|
+|2016-12-31 | 0.1618827| 0.4743914| 0.7394580|
+|2017-03-31 | 0.5092111| 0.6413857| 0.9484840|
+|2017-06-30 | 0.4266790| 0.4165978| 0.4200152|
+|2017-07-24 | 0.2501680| 0.5716578| 0.4462988|
 
 This function is obviously more complicated than the script above, but the **field** parameter adds some challenges. I want my data wrangling functions to follow the dplyr convention of passing expressions as field names. This keeps everything consistent. I use the **deparse** function to convert the expression to a string so that I can access the data. I could use lazyeval for this (which is how dplyr works) but it creates many more complications and unatractive code. There are limitations to deparse but they do not impact this function (see [https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html]).
 

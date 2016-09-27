@@ -3,6 +3,11 @@ layout: post
 title: "Date Wrangling with dplyr and lubridate"
 categories: [Solutions]
 tags: [dplyr, lubridate]
+output: 
+  html_document: 
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 10
 ---
 
 ```{r setup, include=FALSE}

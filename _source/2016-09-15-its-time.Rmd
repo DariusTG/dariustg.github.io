@@ -3,8 +3,13 @@ layout: post
 title: "It's Time!"
 categories: [Solutions]
 tags: [xts, ggplot2]
+output: 
+  html_document: 
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 10
 ---
-
+ 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -18,14 +23,14 @@ library(xts)
 library(ggplot2)
 library(ggthemes)
 library(reshape2)
-
-## Read in a csv file of prices
+ 
+## Read in a csv file of prices 
 ibm_url = "http://real-chart.finance.yahoo.com/table.csv?s=IBM&g=d&a=0&b=1&c=2005&ignore=.csv"
 ibm_price_hist = read.csv(ibm_url, header = T, quote = "")
 
 ## Convert the data into an xts object for ease of date manipulation.
 x.ibm_price_hist = as.xts(ibm_price_hist[,-1], order.by = as.Date(ibm_price_hist[,1]))
-
+     
 x.ibm_price_hist_monthly = to.monthly(x.ibm_price_hist$Close, OHLC=F)
 ```
 
@@ -47,7 +52,7 @@ tail(x.ibm_price_hist_monthly)
 ```
 
 To use ggplot with this data, we need to convert it back to a data.frame. This is a fairly simple process, but again, we don't want to continually do it so create a function.
-
+ 
 ```{r echo=TRUE, warning=FALSE}
 xts2data.frame = function(x) {
   df = data.frame(x=index(x), coredata(x))
