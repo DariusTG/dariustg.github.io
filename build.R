@@ -29,5 +29,9 @@ local({
     )
   }
   knitr::opts_knit$set(width = 70)
+  fig_width = servr:::jekyll_config('.', 'fig_width', default = 6)
+  fig_height = servr:::jekyll_config('.', 'fig_height', default = 6)
+  knitr::opts_chunk$set(fig.width=as.numeric(fig_width), fig.height=as.numeric(fig_height))
+  
   knitr::knit(a[1], a[2], quiet = TRUE, encoding = 'UTF-8', envir = .GlobalEnv)
 })
