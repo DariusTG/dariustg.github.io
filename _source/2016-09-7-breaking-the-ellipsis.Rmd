@@ -2,12 +2,20 @@
 layout: post
 title: "Breaking the Ellipsis"
 subtitle: "Dot Dot Dot"
+author: Darius
 categories: [Solutions]
 tags: [ellipsis, list]
+images:
+  - url: /img/posts/ellipsis.png
+    alt: Ellipsis
+    title: Breaking the Ellipsis
 ---
 
 
 I have often found instances where I want to pass a list to a function that accepts multiple items though an ellipsis. If you pass the list, the function considers that one item.
+
+{% assign image = page.images[0] %}
+{% include image.html image=image %}
 
 Lists are handy structures to use because they are not as judgmental as other structures. The ellipsis is also handy because it doesn’t ask you to figure out how many items you want to pass to a function. If I am writing a function with an ellipsis, I will check the class of the first item and determine if it is a list before processing the data.
 
