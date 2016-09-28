@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About Me
-subtitle: I'm still winning.
+subtitle: And this blog
 images:
   - url: /img/avatar-scatterplot.png
     alt: Me Scatterplot
