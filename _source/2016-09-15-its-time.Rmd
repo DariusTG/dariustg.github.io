@@ -4,6 +4,10 @@ title: "It's Time!"
 subtitle: ...to ggplot some xts objects.
 categories: [Solutions]
 tags: [xts, ggplot2]
+images:
+  - url: /img/posts/price-chart.png
+    alt: IBM Price Chart
+    title: It's Time!
 ---
  
 ```{r setup, include=FALSE}
@@ -106,10 +110,10 @@ df.ibm_ohlc_hist_monthly$Direction = ifelse(df.ibm_ohlc_hist_monthly$Data.Close 
 ggplot(df.ibm_ohlc_hist_monthly) +
   geom_linerange(aes(x=Date, ymin=Data.Low, ymax=Data.High), size=.5) +
   geom_rect(aes(xmin = Date - 10, xmax = Date + 10, ymin = Data.Open, ymax = Data.Close, fill=Direction)) + 
-  ggtitle("IBM") + 
+  ggtitle("IBM Price Chart") + 
   ylab("Price (log 10 scale)") +
   scale_y_log10(breaks=pretty(df.ibm_ohlc_hist_monthly$Data.Close)) +
-  theme_economist_white() +
+  theme_economist() +
   theme(legend.position = "none")
 
 ```
