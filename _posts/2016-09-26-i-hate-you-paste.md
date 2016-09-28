@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "I Hate You Paste!"
+subtitle: "Don't call me anymore."
 categories: [Solutions]
 tags: [paste, binary operators]
 ---

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Date Wrangling with dplyr and lubridate"
+subtitle: "Converting data.frames to different periods""
 categories: [Solutions]
 tags: [dplyr, lubridate]
 output: 
@@ -9,10 +10,6 @@ output:
     fig_height: 6
     fig_width: 10
 ---
-
-
-
-## R Markdown
 
 When I'm working with financial time series data, I usually use [xts](http://joshuaulrich.github.io/xts/index.html) objects. I convert the data to a data.frame when I'm ready to plot. Sometimes, I find that I want to adjust the periodicity after I've converted the data to a data.frame and dplyr doesn't have a built in To*Period* function to handle this.
 
@@ -46,17 +43,17 @@ df %>%
 
 |dt         |         x|         y|         z|
 |:----------|---------:|---------:|---------:|
-|2016-09-30 | 0.4167253| 0.2457963| 0.9700675|
-|2016-10-31 | 0.4635953| 0.2950930| 0.4026947|
-|2016-11-30 | 0.9116948| 0.7795224| 0.8702187|
-|2016-12-31 | 0.1618827| 0.4743914| 0.7394580|
-|2017-01-31 | 0.1641406| 0.9305809| 0.2720479|
-|2017-02-28 | 0.2861450| 0.1542953| 0.1937059|
-|2017-03-31 | 0.5092111| 0.6413857| 0.9484840|
-|2017-04-30 | 0.8976203| 0.3369654| 0.7585096|
-|2017-05-31 | 0.5986159| 0.2201575| 0.1229464|
-|2017-06-30 | 0.4266790| 0.4165978| 0.4200152|
-|2017-07-24 | 0.2501680| 0.5716578| 0.4462988|
+|2016-09-30 | 0.9229390| 0.2078030| 0.8023382|
+|2016-10-31 | 0.5159518| 0.0780478| 0.1690971|
+|2016-11-30 | 0.8263243| 0.7985288| 0.0420667|
+|2016-12-31 | 0.7921740| 0.0740064| 0.8083447|
+|2017-01-31 | 0.2296006| 0.9063370| 0.9240397|
+|2017-02-28 | 0.2356986| 0.6482368| 0.4761500|
+|2017-03-31 | 0.4804637| 0.4306057| 0.3643523|
+|2017-04-30 | 0.6962839| 0.7810615| 0.6415886|
+|2017-05-31 | 0.8766275| 0.8184308| 0.3229708|
+|2017-06-30 | 0.8280384| 0.8347582| 0.3230083|
+|2017-07-25 | 0.0621309| 0.8931827| 0.1845022|
 
 This is a very simple method to create periodicity transformation using dplyr and lubridate. The first function creates a new column that distinctly identifies each month/year that each record belongs to using **ceiling_date**. This could be any interval of time from second to hours to quarters, to years. I can also prefix the unit with an integer to create custom intervals ("5 days").
 
@@ -104,11 +101,11 @@ df %>%
 
 |dt         |         x|         y|         z|
 |:----------|---------:|---------:|---------:|
-|2016-09-30 | 0.4167253| 0.2457963| 0.9700675|
-|2016-12-31 | 0.1618827| 0.4743914| 0.7394580|
-|2017-03-31 | 0.5092111| 0.6413857| 0.9484840|
-|2017-06-30 | 0.4266790| 0.4165978| 0.4200152|
-|2017-07-24 | 0.2501680| 0.5716578| 0.4462988|
+|2016-09-30 | 0.9229390| 0.2078030| 0.8023382|
+|2016-12-31 | 0.7921740| 0.0740064| 0.8083447|
+|2017-03-31 | 0.4804637| 0.4306057| 0.3643523|
+|2017-06-30 | 0.8280384| 0.8347582| 0.3230083|
+|2017-07-25 | 0.0621309| 0.8931827| 0.1845022|
 
 This function is obviously more complicated than the script above, but the **field** parameter adds some challenges. I want my data wrangling functions to follow the dplyr convention of passing expressions as field names. This keeps everything consistent. I use the **deparse** function to convert the expression to a string so that I can access the data. I could use lazyeval for this (which is how dplyr works) but it creates many more complications and unatractive code. There are limitations to deparse but they do not impact this function (see [https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html]).
 

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Date Wrangling with dplyr and lubridate"
+subtitle: "Converting data.frames to different periods""
 categories: [Solutions]
 tags: [dplyr, lubridate]
 output: 
@@ -9,12 +10,6 @@ output:
     fig_height: 6
     fig_width: 10
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
 
 When I'm working with financial time series data, I usually use [xts](http://joshuaulrich.github.io/xts/index.html) objects. I convert the data to a data.frame when I'm ready to plot. Sometimes, I find that I want to adjust the periodicity after I've converted the data to a data.frame and dplyr doesn't have a built in To*Period* function to handle this.
 

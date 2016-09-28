@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Breaking the Ellipsis"
+subtitle: "Dot Dot Dot"
 categories: [Solutions]
 tags: [ellipsis, list]
 ---
