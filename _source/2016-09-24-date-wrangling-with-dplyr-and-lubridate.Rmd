@@ -13,7 +13,7 @@ images:
 
 When I'm working with financial time series data, I usually use [xts](http://joshuaulrich.github.io/xts/index.html) objects. I convert the data to a data.frame when I'm ready to plot. Sometimes, I find that I want to adjust the periodicity after I've converted the data to a data.frame and dplyr doesn't have a built in To*Period* function to handle this.
 
-There are many ways to do this, but here is a simple method I created using [lubridate] (https://github.com/hadley/lubridate).
+There are many ways to do this, but here is a simple method I created using [lubridate](https://github.com/hadley/lubridate).
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 library(dplyr)
@@ -46,7 +46,7 @@ The final two functions are just to clean up the data by ungrouping it and remov
 
 That is all nice, but if I'm going to be doing this more than once, I would rather have a function to handle it more generically.
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
-ToPeriod = function(.data, field, period, at="endof") {
+ToPeriod = function(.data, field, period, at="endOf") {
   ## Use substitute to convert field to a named object
   field = substitute(field)
   
@@ -58,7 +58,7 @@ ToPeriod = function(.data, field, period, at="endof") {
   #   we don't have to rely on lazy evaluation which is 
   #   cumbersome to use and hard to debug
   date_values = .data[,deparse(field)]
-  index.at.options = c(endof=1, firstof=2)
+  index.at.options = c(endOf=1, firstOf=-1)
   index.at = as.integer(index.at.options[at])
   
   ## Set up some new fields so that we can group and 
@@ -75,10 +75,10 @@ ToPeriod = function(.data, field, period, at="endof") {
 }
 
 df %>%
-  ToPeriod(dt, "3 months") %>%
+  ToPeriod(dt, "3 months", at="firstOf") %>%
   kable()
 ```
 
-This function is obviously more complicated than the script above, but the **field** parameter adds some challenges. I want my data wrangling functions to follow the dplyr convention of passing expressions as field names. This keeps everything consistent. I use the **deparse** function to convert the expression to a string so that I can access the data. I could use lazyeval for this (which is how dplyr works) but it creates many more complications and unatractive code. There are limitations to deparse but they do not impact this function (see [https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html]).
+This function is obviously more complicated than the script above, but the **field** parameter adds some challenges. I want my data wrangling functions to follow the dplyr convention of passing expressions as field names. This keeps everything consistent. I use the **deparse** function to convert the expression to a string so that I can access the data. I could use lazyeval for this (which is how dplyr works) but it creates many more complications and unatractive code. There are limitations to deparse but they do not impact this function (see <https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html>).
 
 It would be useful to pass a aggregation function to this function to aggregate by the period (mean, median, max, etc.).  I will create this function in the future, for now I use xts to handle this.
