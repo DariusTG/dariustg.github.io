@@ -1,0 +1,1 @@
+Bake = function() servr::jekyll(command="", serve=T)
