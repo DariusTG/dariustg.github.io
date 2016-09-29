@@ -15,7 +15,7 @@ Just for fun, I took my avatar image and plotted the png data into a scatterplot
 {% assign image = page.images[0] %}
 {% include image.html image=image %}
 
- It was relatively easy to do using the [png](http://www.rforge.net/png/)
+ It was relatively easy to do using the [png](http://www.rforge.net/png/) package.
 
 
 {% highlight r %}
