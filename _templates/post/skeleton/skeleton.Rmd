@@ -1,0 +1,23 @@
+---
+layout: post
+title: "Title"
+subtitle: "Sub Title."
+categories: [Solutions]
+tags: [List, of, tags]
+images:
+  - url: /img/posts/
+    alt: 
+    title: 
+---
+
+Teaser
+
+{% assign image = page.images[0] %}
+{% include image.html image=image %}
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+
+var = 4.345
+paste0("The value is: ", var)
+
+```
