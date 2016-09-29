@@ -25,7 +25,8 @@ library(ggplot2)
 library(ggthemes)
 library(png)
 
-# Read the png into a matrix. The png has three dimenssions but I only care about one.
+# Read the png into a matrix. The png has three layers (see third dimension)
+#  but I only care about one.
 av = readPNG("../img/avatar-icon2.png")[,,1]
 num_rows = NROW(av)
 num_cols = NCOL(av)

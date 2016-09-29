@@ -17,14 +17,15 @@ Just for fun, I took my avatar image and plotted the png data into a scatterplot
 
  It was relatively easy to do using the [png](http://www.rforge.net/png/) package.
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width=7.3, fig.height=6.6}
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(ggthemes)
 library(png)
 
-# Read the png into a matrix. The png has three dimenssions but I only care about one.
+# Read the png into a matrix. The png has three layers (see third dimension)
+#  but I only care about one.
 av = readPNG("../img/avatar-icon2.png")[,,1]
 num_rows = NROW(av)
 num_cols = NCOL(av)
