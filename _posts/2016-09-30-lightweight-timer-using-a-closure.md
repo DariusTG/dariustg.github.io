@@ -49,7 +49,7 @@ t$Lap()
 
 {% highlight text %}
 ##    user  system elapsed 
-##   0.024   0.003   0.024
+##    0.02    0.00    0.02
 {% endhighlight %}
 
 
@@ -63,7 +63,7 @@ t$Lap()
 
 {% highlight text %}
 ##    user  system elapsed 
-##   0.033   0.000   0.036
+##   0.033   0.000   0.035
 {% endhighlight %}
 
 This works great and I love working with R6, but I want something a little more lightweight for when I'm bouncing between multiple R environments. After racking my brain a little, I found that closures provide great solution to such a simple problem. The closure gives us the data persistance we need and doesn't require outside packages.
@@ -99,7 +99,7 @@ t()
 
 {% highlight text %}
 ##    user  system elapsed 
-##   6.093   0.000   6.097
+##   6.384   0.000   6.386
 {% endhighlight %}
 
 
@@ -116,7 +116,7 @@ t()
 
 {% highlight text %}
 ##    user  system elapsed 
-##   0.327   0.000   0.326
+##   0.303   0.000   0.303
 {% endhighlight %}
 
 
@@ -142,8 +142,8 @@ t()
 
 {% highlight text %}
 ##    user  system elapsed 
-##   0.000   0.004   0.005
+##   0.003   0.000   0.005
 {% endhighlight %}
 
-You could extend this time to make give it fancy output and also put conditional development environment checking. If you really wanted to get sophisticated, you could inject the timer into functions automatically. I may write a post in the future on how to do this. Sounds like fun.
+You could extend this timer to make fancy output and also put conditional development environment checking. If you really wanted to get sophisticated, you could inject the timer into functions automatically. I may write a post in the future on how to do this. Sounds like fun.
 

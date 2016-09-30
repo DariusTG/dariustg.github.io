@@ -86,5 +86,5 @@ t()
 
 ```
 
-You could extend this time to make give it fancy output and also put conditional development environment checking. If you really wanted to get sophisticated, you could inject the timer into functions automatically. I may write a post in the future on how to do this. Sounds like fun.
+You could extend this timer to make fancy output and also put conditional development environment checking. If you really wanted to get sophisticated, you could inject the timer into functions automatically. I may write a post in the future on how to do this. Sounds like fun.
 
