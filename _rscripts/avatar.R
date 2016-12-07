@@ -1,11 +1,11 @@
-ScatterPlotImage = function(layer = 1) {
+#ScatterPlotImage = function(layer = 1) {
   library(magrittr)
   library(dplyr)
   library(tidyr)
   library(ggplot2)
   library(ggthemes)
   library(png)
-  av = readPNG("img/avatar-icon2.png")[,,1]
+  av = readPNG("img/authors/Swenson_cropped-low.png")[,,1]
   n_r = NROW(av)
   n_c = NCOL(av)
   
@@ -36,5 +36,5 @@ ScatterPlotImage = function(layer = 1) {
     theme_classic() +
     theme(plot.title = element_text(size = rel(1.25), hjust = 0, face = "bold"))
   
-}
+#}
 
