@@ -19,6 +19,7 @@ To find bottlenecks, I used to put timing variables all over code with print sta
 
 
 {% highlight r %}
+library(magrittr)
 library(R6)
 Timer = R6Class("Timer",
   ## Public Scope
@@ -49,7 +50,7 @@ t$Lap()
 
 {% highlight text %}
 ##    user  system elapsed 
-##    0.02    0.00    0.02
+##   0.013   0.006   0.027
 {% endhighlight %}
 
 
@@ -63,7 +64,7 @@ t$Lap()
 
 {% highlight text %}
 ##    user  system elapsed 
-##   0.033   0.000   0.035
+##   0.030   0.004   0.031
 {% endhighlight %}
 
 This works great and I love working with R6, but I want something a little more lightweight for when I'm bouncing between multiple R environments. After racking my brain a little, I found that closures provide great solution to such a simple problem. The closure gives us the data persistance we need and doesn't require outside packages.
@@ -99,7 +100,7 @@ t()
 
 {% highlight text %}
 ##    user  system elapsed 
-##   6.384   0.000   6.386
+##   5.116   0.000   5.123
 {% endhighlight %}
 
 
@@ -116,7 +117,7 @@ t()
 
 {% highlight text %}
 ##    user  system elapsed 
-##   0.303   0.000   0.303
+##   0.230   0.000   0.231
 {% endhighlight %}
 
 
@@ -124,17 +125,6 @@ t()
 {% highlight r %}
 rst = matrix(nrow = 10000) %>%
   apply(1, FUN = function(x) sum(sample(1:0, 100, replace=T)))
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in eval(expr, envir, enclos): could not find function "%>%"
-{% endhighlight %}
-
-
-
-{% highlight r %}
 t()
 {% endhighlight %}
 
@@ -142,7 +132,7 @@ t()
 
 {% highlight text %}
 ##    user  system elapsed 
-##   0.003   0.000   0.005
+##   0.104   0.000   0.102
 {% endhighlight %}
 
 You could extend this timer to make fancy output and also put conditional development environment checking. If you really wanted to get sophisticated, you could inject the timer into functions automatically. I may write a post in the future on how to do this. Sounds like fun.
