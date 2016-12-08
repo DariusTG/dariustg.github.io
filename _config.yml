@@ -96,7 +96,7 @@ google_analytics: "UA-85039269-1"
 timezone: "America/Chicago"
 markdown: kramdown
 highlighter: rouge
-permalink: /:year/:month/:title.html
+permalink: :year/:month/:title.html
 fig_width: 10
 fig_height: 6
 paginate: 5
