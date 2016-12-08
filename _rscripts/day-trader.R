@@ -36,7 +36,7 @@ TTR::MACD(AAPL.a$AAPL.Adjusted)
 
 
 ggplot(data, aes(x=Date)) %>%
-  geom_line.A(aes(y=AAPL.High), color="blue")
+  geom_line_p(aes(y=AAPL.High), color="blue")
 
 
 

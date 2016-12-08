@@ -15,7 +15,7 @@ Do you continually substitute "%>%" for "+" when switching between data wranglin
 {% assign image = page.images[0] %}
 {% include image.html image=image %}
 
-Count myself as one of those people that continually use a pipe instead of a plus and vice-verca when I'm writing a lot of code. Sir Hadley has basically shit the door on ever switching ggplot to using magrittr pipes and I don't blame him. But he can't stop me from doing whatever the heck I want.
+Count myself as one of those people that continually use a pipe instead of a plus and vice-verca when I'm writing a lot of code. Sir Hadley has basically shut the door on ever switching ggplot to using magrittr pipes and I don't blame him. But he can't stop me from doing whatever the heck I want.
 
 In the following code, I took the sample ggplot code from the help and modified it to use magrittr.
 
